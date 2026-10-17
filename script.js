@@ -835,35 +835,28 @@ const personagens = [
         estadoIndividualidade: "Não Despertada"
     }
 ];
-// ==========================================
-// SISTEMA DE MODOS (DIÁRIO E LIVRE)
-// ==========================================
-// Remove duplicatas (se houver)
-const personagensUnicos = Array.from(new Map(personagens.map(p => [p.id, p])).values());
 
-// Verifica a URL para saber qual modo carregar
+// ==========================================
+// SISTEMA DE MODOS E SORTEIO
+// ==========================================
+const personagensUnicos = Array.from(new Map(personagens.map(p => [p.id, p])).values());
 const urlParams = new URLSearchParams(window.location.search);
-const modoAtual = urlParams.get('modo') || 'diario'; // Se não tiver nada na URL, padrão é diario
+const modoAtual = urlParams.get('modo') || 'diario'; 
 
 let respostaDoDia;
 
 if (modoAtual === 'livre') {
-    // MODO LIVRE: Sorteia aleatório a cada F5
     const indiceAleatorio = Math.floor(Math.random() * personagensUnicos.length);
     respostaDoDia = personagensUnicos[indiceAleatorio];
 } else {
-    // MODO DIÁRIO: Sorteia baseado no dia do ano (Muda apenas à meia-noite)
     const hoje = new Date();
     const dataString = `${hoje.getFullYear()}-${hoje.getMonth() + 1}-${hoje.getDate()}`;
-    
-    // Hash matemático da data
     let hashData = 0;
     for (let i = 0; i < dataString.length; i++) {
         hashData = ((hashData << 5) - hashData) + dataString.charCodeAt(i);
         hashData |= 0; 
     }
     hashData = Math.abs(hashData);
-    
     const indiceDiario = hashData % personagensUnicos.length;
     respostaDoDia = personagensUnicos[indiceDiario];
 }
@@ -882,9 +875,6 @@ const CAMPOS_COMPARAVEIS = [
     { chave: "estadoIndividualidade", label: "Estado da Individualidade" }
 ];
 
-// ==========================================
-// ESTADO DO JOGO
-// ==========================================
 const tentativas = []; 
 
 // ==========================================
@@ -895,7 +885,6 @@ document.addEventListener("DOMContentLoaded", () => {
     configurarModos();
 });
 
-// Configura os botões visuais para mostrar qual está ativo
 function configurarModos() {
     const btnDiario = document.getElementById("btn-modo-diario");
     const btnLivre = document.getElementById("btn-modo-livre");
@@ -909,6 +898,7 @@ function configurarModos() {
 
 function configurarInput() {
     const input = document.getElementById("input-personagem");
+    if(!input) return; 
     input.addEventListener("keydown", (e) => {
         if (e.key === "Enter") processarChute(input.value);
     });
@@ -968,6 +958,7 @@ function processarChute(texto) {
 // ==========================================
 function renderizarComparacao(chutado) {
     const container = document.getElementById("fichas-container");
+    if(!container) return;
 
     const card = document.createElement("div");
     card.className = "card-comparacao";
@@ -975,8 +966,6 @@ function renderizarComparacao(chutado) {
     const tagsHTML = CAMPOS_COMPARAVEIS.map(campo => {
         const valorChutado = chutado[campo.chave] || "Desconhecido";
         const valorCerto = respostaDoDia[campo.chave] || "Desconhecido";
-        
-        // Compara ignorando maiúsculas/minúsculas
         const igual = valorChutado.toLowerCase() === valorCerto.toLowerCase();
         
         const classe = igual ? "certo" : "errado";
@@ -1000,11 +989,11 @@ function renderizarComparacao(chutado) {
                 <span class="nome">${chutado.nome}</span>
                 ${acertouTudo ? '<span class="badge-acerto">ACERTOU!</span>' : ''}
             </div>
-            <img src="${chutado.imagem}" alt="${chutado.nome}" class="mini-portrait"
+            <img src="${chutado.imagem || ''}" alt="${chutado.nome}" class="mini-portrait"
                  onerror="this.style.display='none'">
         </div>
         
-        <p class="frase-mini">"${chutado.frase}"</p>
+        <p class="frase-mini">"${chutado.frase || ''}"</p>
         
         <div class="stats-grid">
             ${tagsHTML}
@@ -1023,6 +1012,7 @@ function renderizarComparacao(chutado) {
 // ==========================================
 function revelarResposta() {
     const container = document.getElementById("fichas-container");
+    if(!container) return;
 
     const vitoria = document.createElement("div");
     vitoria.className = "tela-vitoria";
@@ -1031,7 +1021,7 @@ function revelarResposta() {
         <div class="idle-container ficha-nova">
             <div class="info-section">
                 <h1 class="char-name">${respostaDoDia.nome}</h1>
-                <p class="char-quote">"${respostaDoDia.frase}"</p>
+                <p class="char-quote">"${respostaDoDia.frase || ''}"</p>
 
                 <div class="stats-grid">
                     <div class="stat-group">
@@ -1063,17 +1053,17 @@ function revelarResposta() {
                 <div class="detail-row">
                     <span class="detail-title">Individualidade</span>
                     <div class="individualidade-box revelada">
-                        <h3>${respostaDoDia.nomeIndividualidade}</h3>
+                        <h3>${respostaDoDia.nomeIndividualidade || '???'}</h3>
                         <div class="individ-status">
                             <span class="stat-title">Estado da Individualidade</span>
-                            <span class="tag certo">✓ ${respostaDoDia.estadoIndividualidade}</span>
+                            <span class="tag certo">✓ ${respostaDoDia.estadoIndividualidade || '???'}</span>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="image-section">
-                <img src="${respostaDoDia.imagem}" alt="${respostaDoDia.nome}" class="char-portrait"
+                <img src="${respostaDoDia.imagem || ''}" alt="${respostaDoDia.nome}" class="char-portrait"
                      onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22500%22><rect fill=%22%23222%22 width=%22400%22 height=%22500%22/><text x=%2250%25%22 y=%2250%25%22 fill=%22%23666%22 font-size=%2220%22 text-anchor=%22middle%22>Sem imagem</text></svg>'">
             </div>
         </div>

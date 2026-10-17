@@ -3,39 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sombras da Sociedidle</title>
+    <title>Sombras da Sociedade - Adivinhe o Personagem</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- ========================================== -->
-    <!-- TOPO FIXO: CONTADOR E INPUT DE CHUTE       -->
-    <!-- ========================================== -->
     <header class="topo-fixo">
-
+        <div class="contador" id="contador">0 / 0</div>
+        
         <div class="modos-container">
             <a href="?modo=diario" class="btn-modo" id="btn-modo-diario">📅 Diário</a>
             <a href="?modo=livre" class="btn-modo" id="btn-modo-livre">🔄 Livre</a>
         </div>
+        
+        <div class="busca-container">
+            <div class="input-wrapper">
+                <input type="text" id="input-personagem" placeholder="Digite o nome do personagem..." autocomplete="off">
+            </div>
+        </div>
     </header>
 
-    <!-- ========================================== -->
-    <!-- LISTA LATERAL DE PERSONAGENS               -->
-    <!-- ========================================== -->
-    <aside class="lista-spoiler" id="lista-spoiler">
-        <div class="lista-header">
-            <h3>Arquivos</h3>
-            <button class="btn-fechar" onclick="toggleLista()">✕</button>
-        </div>
-        <ul id="lista-personagens"></ul>
-    </aside>
-
-    <!-- ========================================== -->
-    <!-- ÁREA DAS FICHAS                            -->
-    <!-- ========================================== -->
     <main class="fichas-container" id="fichas-container">
-        <!-- As fichas descobertas aparecem aqui -->
+        <!-- As fichas vão aparecer aqui -->
     </main>
 
     <script src="script.js"></script>
