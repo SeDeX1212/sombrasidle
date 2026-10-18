@@ -653,7 +653,7 @@ const personagens = [
         afiliacao: "Torre dos Herois",
         statusSocial: "Heroi",
         idade: "25 a 30 anos",
-        arco: "Ato final",
+        arco: "Cronos",
         tipoIndividualidade: "Fisico",
         nomeIndividualidade: "Urso",
         estadoIndividualidade: "Não Despertada"
@@ -832,6 +832,22 @@ const personagens = [
         arco: "Cupula",
         tipoIndividualidade: "Influência",
         nomeIndividualidade: "Ion",
+        estadoIndividualidade: "Não Despertada"
+    },
+    {
+        id: "ayara",
+        nome: "Ayara Zetani",
+        genero: "Feminino",
+        aliases: ["ayara"],
+        frase: "Akane, voce vai dormi no sofa hoje",
+        imagem: "assets/ayara.png",
+        estado: "Vivo",
+        afiliacao: "Nenhuma",
+        statusSocial: "Civil",
+        idade: "20 a 25 anos",
+        arco: "Erros",
+        tipoIndividualidade: "Psicoemocional",
+        nomeIndividualidade: "Empatia Entrelaçada",
         estadoIndividualidade: "Não Despertada"
     }
 ];
