@@ -389,15 +389,15 @@ const personagens = [
     {
         id: "suzune",
         nome: "Suzune",
-        genero: "Masculino",
+        genero: "Feminino",
         aliases: ["suzune"],
-        frase: "HEHE, IAI MORI",
+        frase: "...",
         imagem: "assets/suzune.png",
         estado: "Vivo",
         afiliacao: "Shie Hassaikai",
         statusSocial: "Vilão",
         idade: "20 a 25 anos",
-        arco: "Tartarus",
+        arco: "Noite de caça",
         tipoIndividualidade: "Criação",
         nomeIndividualidade: "Bomba de Fumaça",
         estadoIndividualidade: "Não Despertada"
