@@ -11,7 +11,7 @@ const personagens = [
         imagem: "assets/akane.png",
         estado: "Vivo",
         afiliacao: "Desajustados",
-        statusSocial: "Herói",
+        statusSocial: "Heroi",
         idade: "20 a 25 anos",
         arco: "Registros",
         nomeIndividualidade: "Hemo Cinetica - Vascularis",
